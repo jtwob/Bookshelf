@@ -1,0 +1,148 @@
+.book-container {
+    position: relative;
+    width: 60px; /* Closed book width */
+    height: 220px; /* Closed book height */
+    margin: 0 10px;
+    perspective: 1500px; /* Perspective for the opening */
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+.book-container.open {
+    position: absolute;
+    z-index: 10;
+    width: 70vw; /* Open book width */
+    height: 50vh; /* Open book height */
+    
+}
+
+.spine {
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: left;
+    transition: opacity 0.3s ease; /* Fade effect */
+}
+
+.spine.hidden {
+    opacity: 0; /* Hide the spine when open */
+    pointer-events: none; /* Disable interaction */
+}
+
+.spine-title {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    color: white;
+    font-size: 12px;
+    text-align: center;
+}
+
+.cover {
+    width: calc(100% - 10px);
+    height: 100%;
+    background-color: #444; /* Cover color */
+    position: absolute;
+    left: 10px;
+    z-index: 1;
+    border-radius: 5px;
+    transition: transform 0.5s ease; /* Rotate effect */
+}
+
+.cover.hidden {
+    opacity: 0; /* Hide the cover when open */
+    pointer-events: none; /* Disable interaction */
+}
+
+.pages {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-style: preserve-3d;
+    z-index: 0;
+    opacity: 0; /* Hide pages when closed */
+    visibility: hidden; /* Ensure they are not interactable */
+    transition: opacity 0.5s ease, visibility 0.5s ease; /* Smooth transition for visibility */
+}
+
+.left-page,
+.right-page {
+    width: 50%; /* Set both pages to half width */
+    height: 100%;
+    background-color: #fff; /* Page background color */
+    position: absolute; /* Change to absolute positioning */
+    top: 0; /* Align to the top */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 20px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease; /* Smooth transition for pages */
+}
+
+.left-page {
+    left: 0; /* Align left page to left */
+    transform: rotateY(100deg);
+    transform-origin: right; /* Rotate from the right edge */
+}
+
+.right-page {
+    right: 0; /* Align right page to right */
+    transform: rotateY(-100deg);
+    transform-origin: left; /* Rotate from the left edge */
+}
+
+.book-container.open .left-page {
+    transform: rotateY(0deg); /* Open left page towards viewer */
+    transition-duration: 4s;
+    transition-property: transform;
+}
+
+.book-container.open .right-page {
+    transform: rotateY(0deg); /* Open left page towards viewer */
+    transition-duration: 4s;
+    transition-property: transform;
+}
+
+.book-container.open .cover {
+    transform: rotateY(180deg); /* Rotate cover back towards viewer */
+}
+
+.page-content {
+    font-size: 1.4rem;
+}
+
+.main-text {
+    text-align: left; /* Align main text to the left */
+    direction: ltr;
+    /* transform: scale(-1, 1); */
+}
+
+.supplemental-text {
+    text-align: left; /* Align supplemental text to the right */
+    direction: ltr;
+    /* transform: scale(-1, 1); */
+}
+
+/* Ensure the pages are visible when open */
+.book-container.open .pages {
+    opacity: 1; /* Show pages when open */
+    visibility: visible; /* Make pages interactable */
+}
+
+.delete-button {
+    margin-top: 55vh; /* Adjust spacing as needed */
+    padding: 5px 10px;
+    background-color: red; /* Red color for visibility */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
