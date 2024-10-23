@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Book.css';
 
 const Book = ({ title, color, onDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mainText, setMainText] = useState('Main Text'); // Default text
   const [supplementalText, setSupplementalText] = useState('Supplemental Text'); // Default text
+
+  // Create refs for the editable content
+  const mainTextRef = useRef(null);
+  const supplementalTextRef = useRef(null);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -32,8 +36,9 @@ const Book = ({ title, color, onDelete }) => {
             className="page-content main-text"
             contentEditable={isOpen} // Make editable only when the book is open
             suppressContentEditableWarning={true} // Suppress warnings for using contentEditable
-            onInput={(e) => setMainText(e.target.innerText)} // Update state on input
+            onBlur={() => setMainText(mainTextRef.current.innerText)} // Update state when losing focus
             onClick={(e) => e.stopPropagation()} // Prevent click from closing the book
+            ref={mainTextRef} // Attach ref to the div
           >
             {mainText}
           </div>
@@ -43,8 +48,9 @@ const Book = ({ title, color, onDelete }) => {
             className="page-content supplemental-text"
             contentEditable={isOpen} // Make editable only when the book is open
             suppressContentEditableWarning={true} // Suppress warnings for using contentEditable
-            onInput={(e) => setSupplementalText(e.target.innerText)} // Update state on input
+            onBlur={() => setSupplementalText(supplementalTextRef.current.innerText)} // Update state when losing focus
             onClick={(e) => e.stopPropagation()} // Prevent click from closing the book
+            ref={supplementalTextRef} // Attach ref to the div
           >
             {supplementalText}
           </div>

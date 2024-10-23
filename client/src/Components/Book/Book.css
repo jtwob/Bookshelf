@@ -83,19 +83,19 @@
     top: 0; /* Align to the top */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
-    padding: 20px;
+    padding-top: 20px;
     transition: transform 0.5s ease, box-shadow 0.5s ease; /* Smooth transition for pages */
 }
 
 .left-page {
     left: 0; /* Align left page to left */
-    transform: rotateY(100deg);
+    transform: rotateY(90deg);
     transform-origin: right; /* Rotate from the right edge */
 }
 
 .right-page {
     right: 0; /* Align right page to right */
-    transform: rotateY(-100deg);
+    transform: rotateY(-90deg);
     transform-origin: left; /* Rotate from the left edge */
 }
 
@@ -116,6 +116,7 @@
 }
 
 .page-content {
+    padding: 20px;
     font-size: 1.4rem;
 }
 
